@@ -1,1 +1,0 @@
-// MainWindow-Logik mit CAN-Kommunikation
