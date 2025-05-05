@@ -1,0 +1,33 @@
+name: Build CAN-Kompressor-Steuerung
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore ./src/CAN_Controller.csproj
+
+      - name: Build project
+        run: dotnet build ./src/CAN_Controller.csproj --configuration Release
+
+      - name: Upload .exe artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: CAN-Controller-EXE
+          path: |
+            ./src/bin/Release/net8.0-windows/
+            ./src/bin/Release/net8.0-windows*/CAN_Controller.exe
+            ./src/bin/Release/net8.0-windows*/CAN_Controller.dll
