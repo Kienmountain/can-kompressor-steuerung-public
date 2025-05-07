@@ -1,1 +1,0 @@
-// Logik der MainWindow GUI (WPF)
